@@ -3,12 +3,14 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import { AppProvider } from './state';
 import { Button } from './components/ui/button';
+import Verification from './pages/verification';
 import Registration from './pages/registration';
 import EmploymentInfo from './pages/employment-info';
 import PersonalInformation from './pages/personal-information';
 
 const router = createBrowserRouter([
   { path: '/', element: <Registration /> },
+  { path: '/verification', element: <Verification /> },
   { path: '/personal-information', element: <PersonalInformation /> },
   { path: '/employment-info', element: <EmploymentInfo /> },
 ]);

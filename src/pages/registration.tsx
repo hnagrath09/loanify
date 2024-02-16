@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -18,9 +19,9 @@ import {
 import { useAppState } from '@/hooks/use-app-state';
 
 const formSchema = z.object({
-  email: z.string().email(),
-  phone: z.string().refine(validator.isMobilePhone),
-  password: z.string().min(8),
+  phone: z
+    .string({ required_error: 'Please enter your phone number' })
+    .refine(validator.isMobilePhone, { message: 'Enter a valid phone number' }),
 });
 
 export default function Registration() {
@@ -34,7 +35,7 @@ export default function Registration() {
 
   function onSubmit(data: z.infer<typeof formSchema>) {
     setState({ ...state, ...data });
-    navigate('/personal-information');
+    navigate('/verification', { replace: true });
   }
 
   return (
@@ -45,24 +46,6 @@ export default function Registration() {
 
           <FormField
             control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Email Address</FormLabel>
-                <FormControl>
-                  <Input
-                    {...field}
-                    type="email"
-                    placeholder="Enter your email"
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
             name="phone"
             render={({ field }) => (
               <FormItem>
@@ -70,24 +53,9 @@ export default function Registration() {
                 <FormControl>
                   <Input placeholder="Enter your phone number" {...field} />
                 </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="password"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Password</FormLabel>
-                <FormControl>
-                  <Input
-                    {...field}
-                    type="password"
-                    placeholder="Enter your password"
-                  />
-                </FormControl>
+                <FormDescription>
+                  We'll send a verification code via sms on your number
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -98,7 +66,7 @@ export default function Registration() {
             className="w-full"
             onClick={form.handleSubmit(onSubmit)}
           >
-            Proceed <ChevronRight />
+            Get Verification Code <ChevronRight />
           </Button>
         </div>
       </form>

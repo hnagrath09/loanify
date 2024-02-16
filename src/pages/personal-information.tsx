@@ -35,6 +35,7 @@ import { useAppState } from '@/hooks/use-app-state';
 
 const formSchema = z.object({
   name: z.string().min(2).max(50),
+  email: z.string().email({ message: 'Invalid email address' }),
   dateOfBirth: z.date({ required_error: 'A date of birth is required' }),
   gender: z.enum(['male', 'female', 'other'], {
     required_error: 'Please select gender',
@@ -79,6 +80,24 @@ export default function PersonalInformation() {
                 <FormLabel>Name as per your PAN</FormLabel>
                 <FormControl>
                   <Input placeholder="Enter your name" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Email Address</FormLabel>
+                <FormControl>
+                  <Input
+                    {...field}
+                    type="email"
+                    placeholder="Enter your email"
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
