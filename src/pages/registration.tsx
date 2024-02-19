@@ -25,8 +25,8 @@ const formSchema = z.object({
 });
 
 export default function Registration() {
-  const [state, setState] = useAppState();
   const navigate = useNavigate();
+  const [state, setState] = useAppState();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),

@@ -7,12 +7,16 @@ import Verification from './pages/verification';
 import Registration from './pages/registration';
 import EmploymentInfo from './pages/employment-info';
 import PersonalInformation from './pages/personal-information';
+import LoadRequirement from './pages/loan-requirement';
+import SoftOffer from './pages/soft-offer';
 
 const router = createBrowserRouter([
   { path: '/', element: <Registration /> },
   { path: '/verification', element: <Verification /> },
   { path: '/personal-information', element: <PersonalInformation /> },
   { path: '/employment-info', element: <EmploymentInfo /> },
+  { path: '/loan-requirement', element: <LoadRequirement /> },
+  { path: '/soft-offer', element: <SoftOffer /> },
 ]);
 
 export default function App() {

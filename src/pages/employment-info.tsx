@@ -34,8 +34,8 @@ const formSchema = z.discriminatedUnion('employmentType', [
     employerName: z.string({
       required_error: 'Please enter your employer name',
     }),
-    monthlyIncome: z.number(),
-    yearsOfExperience: z.number(),
+    monthlyIncome: z.string().transform((val) => parseInt(val)),
+    yearsOfExperience: z.string().transform((val) => parseInt(val)),
     officeAddress: z.string(),
     salaryBank: z.enum(['icici', 'kotak mahindra', 'sbi', 'axis'], {
       required_error: 'Please select the bank you have salary account with',
@@ -71,7 +71,7 @@ export default function EmploymentInfo() {
 
   function onSubmit(data: z.infer<typeof formSchema>) {
     setState({ ...state, ...data });
-    navigate('/employment-info');
+    navigate('/loan-requirement');
   }
 
   return (
@@ -132,8 +132,9 @@ export default function EmploymentInfo() {
                     <FormLabel>Monthly Income</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Enter your monthly income"
                         {...field}
+                        type="number"
+                        placeholder="Enter your monthly income"
                       />
                     </FormControl>
                     <FormMessage />
@@ -149,8 +150,9 @@ export default function EmploymentInfo() {
                     <FormLabel>Years of Experience</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Enter your years of experience"
                         {...field}
+                        type="number"
+                        placeholder="Enter your years of experience"
                       />
                     </FormControl>
                     <FormMessage />
