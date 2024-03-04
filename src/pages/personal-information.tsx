@@ -1,21 +1,21 @@
-import { z } from 'zod';
-import { format } from 'date-fns';
-import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
-import { CalendarIcon } from '@radix-ui/react-icons';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { z } from "zod";
+import { format } from "date-fns";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { CalendarIcon } from "@radix-ui/react-icons";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
-import { cn } from '@/lib/utils';
-import { Input } from '@/components/ui/input';
+import { cn } from "@/lib/utils";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+} from "@/components/ui/select";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import {
   Form,
   FormControl,
@@ -23,33 +23,33 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
+} from "@/components/ui/form";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@/components/ui/popover';
-import { Button } from '@/components/ui/button';
-import { Calendar } from '@/components/ui/calendar';
-import { useAppState } from '@/hooks/use-app-state';
+} from "@/components/ui/popover";
+import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
+import { useAppState } from "@/hooks/use-app-state";
 
 const formSchema = z.object({
   name: z.string().min(2).max(50),
-  email: z.string().email({ message: 'Invalid email address' }),
-  dateOfBirth: z.date({ required_error: 'A date of birth is required' }),
-  gender: z.enum(['male', 'female', 'other'], {
-    required_error: 'Please select gender',
+  email: z.string().email({ message: "Invalid email address" }),
+  dateOfBirth: z.date({ required_error: "A date of birth is required" }),
+  gender: z.enum(["male", "female", "other"], {
+    required_error: "Please select gender",
   }),
-  maritalStatus: z.enum(['single', 'married'], {
-    required_error: 'Please select marital status',
+  maritalStatus: z.enum(["single", "married"], {
+    required_error: "Please select marital status",
   }),
   pan: z
-    .string({ required_error: 'Please enter your valid PAN number' })
+    .string({ required_error: "Please enter your valid PAN number" })
     .length(10),
   aadhaar: z
-    .string({ required_error: 'Please enter your valid Aadhaar number' })
+    .string({ required_error: "Please enter your valid Aadhaar number" })
     .length(12),
-  address: z.string({ required_error: 'Please enter your address' }),
+  address: z.string({ required_error: "Please enter your address" }),
 });
 
 export default function PersonalInformation() {
@@ -63,7 +63,7 @@ export default function PersonalInformation() {
 
   function onSubmit(data: z.infer<typeof formSchema>) {
     setState({ ...state, ...data });
-    navigate('/employment-info');
+    navigate("/employment-info");
   }
 
   return (
@@ -115,18 +115,18 @@ export default function PersonalInformation() {
                     <PopoverTrigger asChild>
                       <FormControl>
                         <Button
-                          variant={'outline'}
+                          variant={"outline"}
                           className={cn(
-                            'w-full pl-3 text-left font-normal',
-                            !field.value && 'text-muted-foreground'
+                            "w-full pl-3 text-left font-normal",
+                            !field.value && "text-muted-foreground",
                           )}
                         >
                           {field.value ? (
-                            format(field.value, 'PPP')
+                            format(field.value, "PPP")
                           ) : (
                             <span>Pick a date</span>
                           )}
-                          <CalendarIcon className="w-4 h-4 ml-auto opacity-50" />
+                          <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                         </Button>
                       </FormControl>
                     </PopoverTrigger>
@@ -136,7 +136,7 @@ export default function PersonalInformation() {
                         selected={field.value}
                         onSelect={field.onChange}
                         disabled={(date) =>
-                          date > new Date() || date < new Date('1900-01-01')
+                          date > new Date() || date < new Date("1900-01-01")
                         }
                         initialFocus
                       />
@@ -251,9 +251,10 @@ export default function PersonalInformation() {
 
           <div className="flex items-center gap-4">
             <Button
+              type="button"
               variant="outline"
               className="w-full"
-              onClick={() => navigate('/')}
+              onClick={() => navigate("/")}
             >
               <ChevronLeft />
               Back

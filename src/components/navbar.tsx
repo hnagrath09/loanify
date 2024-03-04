@@ -5,28 +5,28 @@ import {
   HelpCircle,
   MenuIcon,
   ScrollText,
-} from 'lucide-react';
+} from "lucide-react";
 
-import { Button } from './ui/button';
+import { Button } from "./ui/button";
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from './ui/sheet';
-import clsx from 'clsx';
+} from "./ui/sheet";
+import clsx from "clsx";
 
 export default function Navbar() {
   return (
-    <nav className="flex items-center h-12 px-4 space-x-2 text-white bg-primary">
+    <nav className="bg-primary flex h-12 items-center space-x-2 px-4 text-white">
       <Sheet>
         <SheetTrigger asChild>
-          <Button className="w-6 h-6 p-1" variant="default">
+          <Button className="h-6 w-6 p-1" variant="default">
             <MenuIcon className="text-sm" />
           </Button>
         </SheetTrigger>
-        <SheetContent side="left" className="text-white border-none bg-primary">
+        <SheetContent side="left" className="bg-primary border-none text-white">
           <SheetHeader className="text-left">
             <SheetTitle className="flex items-center gap-2 font-mono text-white">
               <Activity size={20} />
@@ -35,25 +35,26 @@ export default function Navbar() {
           </SheetHeader>
           <Button
             variant="outline"
-            className="w-full flex items-center gap-2 h-auto py-1.5 bg-gray-700 mt-4 justify-start"
+            className="mt-4 flex h-auto w-full items-center justify-start gap-2 bg-gray-700 py-1.5"
           >
             <FilePenLine size={16} />
             Instant Loan
           </Button>
-          <nav className="grid gap-2 mt-4">
+          <nav className="mt-4 grid gap-2">
             {[
               {
-                title: 'Track Application',
+                title: "Track Application",
                 icon: <ScrollText size={16} />,
                 isActive: true,
               },
-              { title: 'FAQs', icon: <HelpCircle size={16} /> },
-              { title: 'Contact Us', icon: <Headset size={16} /> },
+              { title: "FAQs", icon: <HelpCircle size={16} /> },
+              { title: "Contact Us", icon: <Headset size={16} /> },
             ].map((link) => (
               <div
+                key={link.title}
                 className={clsx(
-                  'flex items-center gap-2 px-4 text-sm py-1.5 rounded-md hover:bg-gray-700',
-                  { 'bg-primary-foreground/30 font-semibold': link.isActive }
+                  "flex items-center gap-2 rounded-md px-4 py-1.5 text-sm hover:bg-gray-700",
+                  { "bg-primary-foreground/30 font-semibold": link.isActive },
                 )}
               >
                 <span>{link.icon}</span>

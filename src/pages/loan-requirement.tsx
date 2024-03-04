@@ -1,11 +1,11 @@
-import { z } from 'zod';
-import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { z } from "zod";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
-import { Button } from '@/components/ui/button';
-import { useAppState } from '@/hooks/use-app-state';
+import { Button } from "@/components/ui/button";
+import { useAppState } from "@/hooks/use-app-state";
 import {
   Form,
   FormControl,
@@ -13,22 +13,22 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Slider } from '@/components/ui/slider';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Slider } from "@/components/ui/slider";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
+} from "@/components/ui/select";
 
 const formSchema = z.object({
   amountRequired: z.coerce.number().min(0).max(1000000),
   loanPurpose: z.enum(
-    ['home-loan', 'personal-loan', 'education-loan', 'vehicle-loan'],
-    { required_error: 'Please select your loan purpose!' }
+    ["home-loan", "personal-loan", "education-loan", "vehicle-loan"],
+    { required_error: "Please select your loan purpose!" },
   ),
 });
 
@@ -38,12 +38,12 @@ export default function LoadRequirement() {
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: { ...state, amountRequired: 100000 },
+    defaultValues: state,
   });
 
   function onSubmit(data: z.infer<typeof formSchema>) {
     setState({ ...state, ...data });
-    navigate('/soft-offer');
+    navigate("/soft-offer");
   }
 
   return (
@@ -114,7 +114,7 @@ export default function LoadRequirement() {
             <Button
               variant="outline"
               className="w-full"
-              onClick={() => navigate('/personal-information')}
+              onClick={() => navigate("/personal-information")}
             >
               <ChevronLeft />
               Back

@@ -1,5 +1,5 @@
-import { Input } from '@/components/ui/input';
-import { useState, Fragment, useRef, useEffect } from 'react';
+import { Input } from "@/components/ui/input";
+import { useState, Fragment, useRef, useEffect } from "react";
 
 type OtpInputProps = {
   length: number;
@@ -10,7 +10,7 @@ let currentOtpIndex: number = 0;
 
 const Otp = ({ length, onOtpChange }: OtpInputProps): JSX.Element => {
   const [tempOtp, setTempOtp] = useState<string[]>(
-    new Array(length || 6).fill('')
+    new Array(length || 6).fill(""),
   );
   const [activeOtpIndex, setActiveOtpIndex] = useState<number>(0);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -27,17 +27,17 @@ const Otp = ({ length, onOtpChange }: OtpInputProps): JSX.Element => {
 
     setTempOtp(newOtp);
     onOtpChange(
-      isNaN(parseInt(newOtp.join(''))) ? 0 : parseInt(newOtp.join(''))
+      isNaN(parseInt(newOtp.join(""))) ? 0 : parseInt(newOtp.join("")),
     );
     // otp = isNaN(parseInt(tempOtp.join(''))) ? 0 : parseInt(tempOtp.join(''));
   };
 
   const handleOnKeyDown = (
     { key }: React.KeyboardEvent<HTMLInputElement>,
-    index: number
+    index: number,
   ) => {
     currentOtpIndex = index;
-    if (key === 'Backspace') {
+    if (key === "Backspace") {
       setActiveOtpIndex(currentOtpIndex - 1);
     }
   };
@@ -47,7 +47,7 @@ const Otp = ({ length, onOtpChange }: OtpInputProps): JSX.Element => {
   }, [activeOtpIndex]);
 
   return (
-    <div className="flex items-center space-x-2 w-fit">
+    <div className="flex w-fit items-center space-x-2">
       {tempOtp.map((_, index) => {
         return (
           <Fragment key={index}>
@@ -56,12 +56,11 @@ const Otp = ({ length, onOtpChange }: OtpInputProps): JSX.Element => {
               onChange={handleOnchange}
               onKeyDown={(e) => handleOnKeyDown(e, index)}
               className="w-10 text-center placeholder:text-slate-300 dark:placeholder:text-slate-500"
-              type="number"
               placeholder={(index + 1).toString()}
               value={tempOtp[index]}
             />
             {index === tempOtp.length - 1 ? null : (
-              <span className="w-2 py-[0.5px] bg-foreground" />
+              <span className="bg-foreground w-2 py-[0.5px]" />
             )}
           </Fragment>
         );

@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useState } from 'react';
+import { ReactNode, createContext, useState } from "react";
 
 type FormFields = {
   name?: string;
@@ -6,12 +6,18 @@ type FormFields = {
   phone?: string;
   password?: string;
   dateOfBirth?: Date;
-  gender?: 'male' | 'female' | 'other';
-  maritalStatus?: 'single' | 'married';
+  gender?: "male" | "female" | "other";
+  maritalStatus?: "single" | "married";
   pan?: string;
   aadhaar?: string;
   address?: string;
-  employmentType?: 'salaried' | 'self-employed';
+  employmentType?: "salaried" | "self-employed";
+  loanPurpose?:
+    | "home-loan"
+    | "personal-loan"
+    | "education-loan"
+    | "vehicle-loan";
+  amountRequired?: number;
 };
 
 export const AppStateContext = createContext<
@@ -20,7 +26,8 @@ export const AppStateContext = createContext<
 
 export function AppProvider({ children }: { children: ReactNode }) {
   const [value, setValue] = useState<FormFields>({
-    employmentType: 'salaried',
+    employmentType: "salaried",
+    amountRequired: 100000,
   });
   console.log(value);
 

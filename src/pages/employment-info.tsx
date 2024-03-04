@@ -67,8 +67,6 @@ export default function EmploymentInfo() {
 
   const employmentType = form.watch('employmentType');
 
-  console.log(employmentType);
-
   function onSubmit(data: z.infer<typeof formSchema>) {
     setState({ ...state, ...data });
     navigate('/loan-requirement');
@@ -199,7 +197,7 @@ export default function EmploymentInfo() {
                             <span>ICICI</span>
                           </div>
                         </SelectItem>
-                        <SelectItem value="kotak">
+                        <SelectItem value="kotak mahindra">
                           <div className="flex items-center">
                             <img className="inline w-4 h-4 mr-2" src={kotak} />
                             <span>Kotak Mahindra</span>
