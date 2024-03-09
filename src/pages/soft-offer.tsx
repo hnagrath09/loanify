@@ -1,18 +1,18 @@
 import { useMemo } from "react";
+import { Check } from "lucide-react";
+import { Link } from "react-router-dom";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { useAppState } from "@/hooks/use-app-state";
 import { Button } from "@/components/ui/button";
-import { Check } from "lucide-react";
 
 export default function SoftOffer() {
-  const [state, setState] = useAppState();
+  const [state] = useAppState();
 
   const loanPurpose = state?.loanPurpose;
 
@@ -70,9 +70,11 @@ export default function SoftOffer() {
           </p>
         </CardContent>
         <CardFooter>
-          <Button className="w-full">
-            <Check className="mr-2 h-4 w-4" /> Proceed
-          </Button>
+          <Link to="/documents">
+            <Button className="w-full">
+              <Check className="mr-2 h-4 w-4" /> Proceed
+            </Button>
+          </Link>
         </CardFooter>
       </Card>
     </div>

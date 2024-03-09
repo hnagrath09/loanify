@@ -18,6 +18,7 @@ type FormFields = {
     | "education-loan"
     | "vehicle-loan";
   amountRequired?: number;
+  identityProof?: "aadhaar" | "pan" | "passport" | "voter" | "drivingLicense";
 };
 
 export const AppStateContext = createContext<
@@ -28,6 +29,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [value, setValue] = useState<FormFields>({
     employmentType: "salaried",
     amountRequired: 100000,
+    identityProof: "aadhaar",
   });
   console.log(value);
 
