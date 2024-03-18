@@ -62,7 +62,7 @@ export default function LoadRequirement() {
                   <div className="flex items-center space-x-2">
                     <Slider
                       min={0}
-                      step={1}
+                      step={1000}
                       max={1000000}
                       value={[field.value]}
                       onValueChange={field.onChange}

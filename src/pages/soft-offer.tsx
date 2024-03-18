@@ -70,7 +70,7 @@ export default function SoftOffer() {
           </p>
         </CardContent>
         <CardFooter>
-          <Link to="/documents">
+          <Link to="/documents" className="w-full">
             <Button className="w-full">
               <Check className="mr-2 h-4 w-4" /> Proceed
             </Button>

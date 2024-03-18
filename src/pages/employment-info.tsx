@@ -1,15 +1,15 @@
-import { z } from 'zod';
-import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { z } from "zod";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
-import icici from '@/assets/icons/icici.svg';
-import kotak from '@/assets/icons/kotak.png';
-import sbi from '@/assets/icons/sbi.png';
-import axis from '@/assets/icons/axis.svg';
+import icici from "@/assets/icons/icici.svg";
+import kotak from "@/assets/icons/kotak.png";
+import sbi from "@/assets/icons/sbi.png";
+import axis from "@/assets/icons/axis.svg";
 
-import { useAppState } from '@/hooks/use-app-state';
+import { useAppState } from "@/hooks/use-app-state";
 import {
   Form,
   FormControl,
@@ -17,38 +17,38 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
+} from "@/components/ui/form";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
+} from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
-const formSchema = z.discriminatedUnion('employmentType', [
+const formSchema = z.discriminatedUnion("employmentType", [
   z.object({
-    employmentType: z.literal('salaried'),
+    employmentType: z.literal("salaried"),
     employerName: z.string({
-      required_error: 'Please enter your employer name',
+      required_error: "Please enter your employer name",
     }),
     monthlyIncome: z.string().transform((val) => parseInt(val)),
     yearsOfExperience: z.string().transform((val) => parseInt(val)),
     officeAddress: z.string(),
-    salaryBank: z.enum(['icici', 'kotak mahindra', 'sbi', 'axis'], {
-      required_error: 'Please select the bank you have salary account with',
+    salaryBank: z.enum(["icici", "kotak mahindra", "sbi", "axis"], {
+      required_error: "Please select the bank you have salary account with",
     }),
   }),
 
   z.object({
-    employmentType: z.literal('self-employed'),
+    employmentType: z.literal("self-employed"),
     businessName: z.string(),
     natureOfBusiness: z.string(),
     typeOfBusinessEntity: z.string(),
     businessPan: z
-      .string({ required_error: 'Please enter your Business PAN number' })
+      .string({ required_error: "Please enter your Business PAN number" })
       .length(10),
     businessAnnualIncome: z.number(),
     businessVintage: z.string(),
@@ -65,11 +65,11 @@ export default function EmploymentInfo() {
     defaultValues: state,
   });
 
-  const employmentType = form.watch('employmentType');
+  const employmentType = form.watch("employmentType");
 
   function onSubmit(data: z.infer<typeof formSchema>) {
     setState({ ...state, ...data });
-    navigate('/loan-requirement');
+    navigate("/loan-requirement");
   }
 
   return (
@@ -103,7 +103,7 @@ export default function EmploymentInfo() {
             )}
           />
 
-          {employmentType === 'salaried' && (
+          {employmentType === "salaried" && (
             <>
               <FormField
                 control={form.control}
@@ -193,25 +193,25 @@ export default function EmploymentInfo() {
                       <SelectContent>
                         <SelectItem value="icici">
                           <div className="flex items-center">
-                            <img className="inline w-4 h-4 mr-2" src={icici} />
+                            <img className="mr-2 inline h-4 w-4" src={icici} />
                             <span>ICICI</span>
                           </div>
                         </SelectItem>
                         <SelectItem value="kotak mahindra">
                           <div className="flex items-center">
-                            <img className="inline w-4 h-4 mr-2" src={kotak} />
+                            <img className="mr-2 inline h-4 w-4" src={kotak} />
                             <span>Kotak Mahindra</span>
                           </div>
                         </SelectItem>
                         <SelectItem value="sbi">
                           <div className="flex items-center">
-                            <img className="inline w-4 h-4 mr-2" src={sbi} />
+                            <img className="mr-2 inline h-4 w-4" src={sbi} />
                             <span>SBI</span>
                           </div>
                         </SelectItem>
                         <SelectItem value="axis">
                           <div className="flex items-center">
-                            <img className="inline w-4 h-4 mr-2" src={axis} />
+                            <img className="mr-2 inline h-4 w-4" src={axis} />
                             <span>Axis</span>
                           </div>
                         </SelectItem>
@@ -225,7 +225,7 @@ export default function EmploymentInfo() {
             </>
           )}
 
-          {employmentType === 'self-employed' && (
+          {employmentType === "self-employed" && (
             <>
               <FormField
                 name="businessName"
@@ -352,7 +352,7 @@ export default function EmploymentInfo() {
             <Button
               variant="outline"
               className="w-full"
-              onClick={() => navigate('/personal-information')}
+              onClick={() => navigate("/personal-information")}
             >
               <ChevronLeft />
               Back

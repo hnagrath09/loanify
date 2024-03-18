@@ -60,6 +60,7 @@ export default function Verfication() {
                 <FormControl>
                   <InputOTP
                     maxLength={4}
+                    autoFocus
                     render={({ slots }) => (
                       <InputOTPGroup className="gap-2">
                         {slots.map((slot, index) => (
