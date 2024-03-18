@@ -12,6 +12,7 @@ type FormFields = {
   aadhaar?: string;
   address?: string;
   employmentType?: "salaried" | "self-employed";
+  monthlyIncome?: number;
   loanPurpose?:
     | "home-loan"
     | "personal-loan"
@@ -29,6 +30,7 @@ export const AppStateContext = createContext<
 export function AppProvider({ children }: { children: ReactNode }) {
   const [value, setValue] = useState<FormFields>({
     employmentType: "salaried",
+    monthlyIncome: 0,
     amountRequired: 100000,
   });
   console.log(value);

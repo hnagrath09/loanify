@@ -4,11 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-import icici from "@/assets/icons/icici.svg";
-import kotak from "@/assets/icons/kotak.png";
-import sbi from "@/assets/icons/sbi.png";
-import axis from "@/assets/icons/axis.svg";
-
 import { useAppState } from "@/hooks/use-app-state";
 import {
   Form,
@@ -27,6 +22,7 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { bankList } from "@/constants/banks";
 
 const formSchema = z.discriminatedUnion("employmentType", [
   z.object({
@@ -37,9 +33,10 @@ const formSchema = z.discriminatedUnion("employmentType", [
     monthlyIncome: z.string().transform((val) => parseInt(val)),
     yearsOfExperience: z.string().transform((val) => parseInt(val)),
     officeAddress: z.string(),
-    salaryBank: z.enum(["icici", "kotak mahindra", "sbi", "axis"], {
-      required_error: "Please select the bank you have salary account with",
-    }),
+    salaryBank: z.enum(
+      ["sbi", "hdfc", "icici", "pnb", "axis", "kotak mahindra", "other"],
+      { required_error: "Please select the bank you have salary account with" },
+    ),
   }),
 
   z.object({
@@ -130,8 +127,20 @@ export default function EmploymentInfo() {
                     <FormLabel>Monthly Income</FormLabel>
                     <FormControl>
                       <Input
+                        type="text"
                         {...field}
-                        type="number"
+                        value={new Intl.NumberFormat("en-IN", {
+                          style: "currency",
+                          currency: "INR",
+                          minimumFractionDigits: 0,
+                        }).format(+field.value)}
+                        onChange={(event) => {
+                          const value = event.target.value;
+                          const newValue = Number(
+                            value.replace(/[^0-9.-]+/g, ""),
+                          );
+                          field.onChange(newValue);
+                        }}
                         placeholder="Enter your monthly income"
                       />
                     </FormControl>
@@ -149,7 +158,7 @@ export default function EmploymentInfo() {
                     <FormControl>
                       <Input
                         {...field}
-                        type="number"
+                        type="text"
                         placeholder="Enter your years of experience"
                       />
                     </FormControl>
@@ -191,31 +200,19 @@ export default function EmploymentInfo() {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="icici">
-                          <div className="flex items-center">
-                            <img className="mr-2 inline h-4 w-4" src={icici} />
-                            <span>ICICI</span>
-                          </div>
-                        </SelectItem>
-                        <SelectItem value="kotak mahindra">
-                          <div className="flex items-center">
-                            <img className="mr-2 inline h-4 w-4" src={kotak} />
-                            <span>Kotak Mahindra</span>
-                          </div>
-                        </SelectItem>
-                        <SelectItem value="sbi">
-                          <div className="flex items-center">
-                            <img className="mr-2 inline h-4 w-4" src={sbi} />
-                            <span>SBI</span>
-                          </div>
-                        </SelectItem>
-                        <SelectItem value="axis">
-                          <div className="flex items-center">
-                            <img className="mr-2 inline h-4 w-4" src={axis} />
-                            <span>Axis</span>
-                          </div>
-                        </SelectItem>
-                        <SelectItem value="other">Other</SelectItem>
+                        {bankList.map(({ icon, value, label }) => (
+                          <SelectItem key={value} value={value}>
+                            <div className="flex items-center">
+                              {icon && (
+                                <img
+                                  className="mr-2 inline h-4 w-4"
+                                  src={icon}
+                                />
+                              )}
+                              <span>{label}</span>
+                            </div>
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                     <FormMessage />
